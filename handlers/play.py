@@ -30,7 +30,7 @@ from helpers.errors import DurationLimitError
 
 chat_id = None
 @Client.on_message(
-    filters.command("playthis")
+    filters.command("ply")
     & filters.group
     & ~ filters.edited
 )
@@ -85,7 +85,7 @@ async def playthis(client: Client, message_: Message):
         m = await client.send_photo(
         chat_id=message_.chat.id,
         photo="https://telegra.ph/file/5113434dcbd3e627a8b5d.jpg",
-        caption=f"Don't Forget to add @IGRISMUSIC in group to listen your song.",
+        caption=f"Don't Forget to add @AsunaMusic in group to listen your song.",
          ) 
         tgcalls.pytgcalls.join_group_call(message_.chat.id, file_path)
 
@@ -123,7 +123,7 @@ async def deezer(client: Client, message_: Message):
         position = sira.add(message_.chat.id, file_path)
         await res.edit_text(f"#️⃣ Queued at position {position}.")
     else:
-        await res.edit_text("▶️ Playing...")
+        await res.edit_text("▶️ Playing... \n **Add @AsunaMusic**")
         tgcalls.pytgcalls.join_group_call(message_.chat.id, file_path)
     await res.delete()
     m = await client.send_photo(
@@ -142,16 +142,16 @@ def changeImageSize(maxWidth, maxHeight, image):
     return newImage
  
 @Client.on_message(
-    filters.command("playm")
+    filters.command("ytt")
     & filters.group
     & ~ filters.edited
 )
-async def playm(client: Client, message_: Message):
+async def ytt(client: Client, message_: Message):
     requested_by = message_.from_user.first_name
     chat_id=message_.chat.id
     text = message_.text.split(" ", 1)
     query = text[1]
-    res = await message_.reply_text(f"Searching... `{query}` on @IGRISXROBOT")
+    res = await message_.reply_text(f"Searching... `{query}` on **@KazutoSuperbot**")
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
         link = f"https://youtube.com{results[0]['url_suffix']}"
@@ -171,14 +171,14 @@ async def playm(client: Client, message_: Message):
         position = sira.add(message_.chat.id, file_path)
         await res.edit_text(f"#️⃣ Queued at position {position}.")
     else:
-        await res.edit_text("▶️ Playing...")
+        await res.edit_text("▶️ Playing... **Add @AsunaMusic**")
         tgcalls.pytgcalls.join_group_call(message_.chat.id, file_path)
     await res.edit("Processing Thumbnail.")
     await generate_cover(requested_by, title, views, duration, thumbnail)
     res.delete
     m = await client.send_photo(
         chat_id=message_.chat.id,
-        caption=f"Add @IGRISMUSIC in group to listen this song `{query}` Via IGRISXROBOT",
+        caption=f"Add @AsunaMusic in group to listen this song **{query}** Via **@KazutoSuperbot**",
         photo="final.png",
         reply_markup=InlineKeyboardMarkup(
             [
@@ -196,7 +196,7 @@ async def generate_cover_square(requested_by, title, artist, duration, thumbnail
                 await f.write(await resp.read())
                 await f.close()
     image1 = Image.open("./background.png")
-    image2 = Image.open("etc/IGRIS.png")
+    image2 = Image.open("etc/ASUNA.png")
     image3 = changeImageSize(600, 500, image1)
     image4 = changeImageSize(600, 500, image2)
     image5 = image3.convert("RGBA")
@@ -205,10 +205,10 @@ async def generate_cover_square(requested_by, title, artist, duration, thumbnail
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/font.otf", 20)
-    draw.text((150, 380), f"Title: {title}", (255, 255, 255), font=font)
-    draw.text((150, 405), f"Artist: {artist}", (255, 255, 255), font=font)
+    draw.text((10, 380), f"Title: {title}", (255, 255, 255), font=font)
+    draw.text((10, 405), f"Artist: {artist}", (255, 255, 255), font=font)
     draw.text(
-        (150, 430),
+        (10, 430),
         f"Duration: {duration} Seconds",
         (255, 255, 255),
         font=font,
@@ -236,7 +236,7 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
                 await f.close()
 
     image1 = Image.open("./background.png")
-    image2 = Image.open("etc/IGRIS.png")
+    image2 = Image.open("etc/ASUNA.png")
     image3 = changeImageSize(1280, 720, image1)
     image4 = changeImageSize(1280, 720, image2)
     image5 = image3.convert("RGBA")
@@ -244,13 +244,13 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     Image.alpha_composite(image5, image6).save("temp.png")
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("etc/font.otf", 32)
-    draw.text((190, 550), f"Title: {title}", (255, 255, 255), font=font)
+    font = ImageFont.truetype("etc/font.otf", 46)
+    draw.text((10, 550), f"Title: {title}", (255, 255, 255), font=font)
     draw.text(
-        (190, 590), f"Duration: {duration}", (255, 255, 255), font=font
+        (10, 590), f"Duration: {duration}", (255, 255, 255), font=font
     )
-    draw.text((190, 630), f"Views: {views}", (255, 255, 255), font=font)
-    draw.text((190, 670),
+    draw.text((10, 630), f"Views: {views}", (255, 255, 255), font=font)
+    draw.text((10, 670),
         f"Played By: {requested_by}",
         (255, 255, 255),
         font=font,
