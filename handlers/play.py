@@ -84,7 +84,7 @@ async def playthis(client: Client, message_: Message):
         res.delete
         m = await client.send_photo(
         chat_id=message_.chat.id,
-        photo="https://telegra.ph/file/5113434dcbd3e627a8b5d.jpg",
+        photo="https://i.imgur.com/yMjamKB.jpg",
         caption=f"Don't Forget to add @AsunaMusic in group to listen your song.",
          ) 
         tgcalls.pytgcalls.join_group_call(message_.chat.id, file_path)
@@ -244,7 +244,7 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     Image.alpha_composite(image5, image6).save("temp.png")
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("etc/font.otf", 46)
+    font = ImageFont.truetype("etc/font.otf", 42)
     draw.text((10, 550), f"Title: {title}", (255, 255, 255), font=font)
     draw.text(
         (10, 590), f"Duration: {duration}", (255, 255, 255), font=font
